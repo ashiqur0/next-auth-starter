@@ -4,6 +4,7 @@ import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { SiMongodb } from "react-icons/si";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import AuthButtons from "@/components/AuthButtons";
 
 export default async function Home() {
 
@@ -24,6 +25,8 @@ export default async function Home() {
       <div className="relative">
         <h2 className="text-5xl">NEXT AUTH</h2>
       </div>
+
+      <AuthButtons />
 
       <h2 className="font-bold">User Server</h2>
       <div className="border-2 p-4 rounded">{JSON.stringify(session)}</div>
