@@ -4,6 +4,27 @@ import { dbConnect } from "@/lib/dbConnect"
 import bcrypt from 'bcryptjs'
 
 export const postUser = async (payLoad) => {
+    // 1. check user exist or not
+    const isExist = await dbConnect('users').findOne({ email: payLoad.email });
+    if (isExist) {
+        return {
+            success: false,
+            message: 'user already exists'
+        }
+    }
+
+    // 2. create new user
+
+    // encrypt the password
+    const password = await bcrypt.hash(payLoad.password, 10);
+
+    // create user
+    const newUser = {
+        ...payLoad,
+        createdAt: new Date().toISOString(),
+        role: 'user',
+        password: password
+    }
 
     // 3. store user to database
     const result = await dbConnect('users').insertOne(newUser);
