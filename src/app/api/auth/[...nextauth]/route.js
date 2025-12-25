@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
+// name, email, image
 const userList = [
     { email: 'zakir@gmail.com', password: 1234 },
     { email: 'sabina@gmail.com', password: 1234 },
