@@ -20,7 +20,7 @@ export const authOptions = {
                 const { email, password } = credentials;
 
                 // find user
-                const user = await dbConnect('users').findOne({email})
+                const user = await dbConnect('users').findOne({ email })
                 if (!user) return null;
 
                 // match password
@@ -33,6 +33,27 @@ export const authOptions = {
             }
         })
     ],
+    callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            return true
+        },
+        async redirect({ url, baseUrl }) {
+            return baseUrl
+        },
+        async session({ session, user, token }) {
+            if (token) {
+                session.role = token.role;
+            }
+            return session
+        },
+        async jwt({ token, user, account, profile, isNewUser }) {
+            if (user) {
+                token.email = user.email;
+                token.role = user.role;
+            }
+            return token
+        }
+    }
 }
 
 const handler = NextAuth(authOptions);
