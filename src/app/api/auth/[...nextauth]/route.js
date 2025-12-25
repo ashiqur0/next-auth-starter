@@ -1,14 +1,7 @@
+import { dbConnect } from "@/lib/dbConnect";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-
-// name, email, image
-const userList = [
-    { email: 'zakir@gmail.com', password: 1234 },
-    { email: 'sabina@gmail.com', password: 1234 },
-    { email: 'rasel@gmail.com', password: 1234 },
-    { email: 'china@gmail.com', password: 1234 },
-    { email: 'ariful@gmail.com', password: 1234 },
-]
+import bcrypt from 'bcryptjs'
 
 export const authOptions = {
     // Configure one or more authentication providers
@@ -21,17 +14,17 @@ export const authOptions = {
             // form inputs
             credentials: {
                 email: { label: "Email", type: "email", placeholder: "Enter your email" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password", placeholder: "Enter your password" }
             },
             async authorize(credentials, req) {
-                // my own login logic | return user if users credentials is okay
-
                 const { email, password } = credentials;
 
-                const user = userList.find(u => u.email == email);
+                // find user
+                const user = await dbConnect('users').findOne({email})
                 if (!user) return null;
 
-                const isPasswordOk = user.password == password;
+                // match password
+                const isPasswordOk = await bcrypt.compare(password, user.password);
                 if (isPasswordOk) {
                     return user;
                 }
