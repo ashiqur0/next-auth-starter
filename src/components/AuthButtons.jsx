@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import LoginButton from "./LoginButton";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const AuthButtons = () => {
 
@@ -12,7 +12,7 @@ const AuthButtons = () => {
         <div>
             <div className="flex gap-5">
                 {
-                    session.status == 'authenticated' ? <button className="btn">Log out</button> : <>
+                    session.status == 'authenticated' ? <button onClick={() => signOut()} className="btn">Log out</button> : <>
                         <LoginButton />
                         <Link href={"/register"} className="btn">Register</Link>
                     </>
