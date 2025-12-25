@@ -9,8 +9,9 @@ const Navbar = () => {
                 <div>Next Auth</div>
                 <div className='flex items-center gap-3'>
                     <Link href={'/'}>Home</Link>
-                    <Link href={'/about'}>About</Link>
-                    <Link href={'/services'}>Services</Link>
+                    <Link href={'/public'}>Public</Link>
+                    <Link href={'/private'}>Private</Link>
+                    <Link href={'/admin'}>Admin</Link>
                 </div>
             </div>
         </nav>
