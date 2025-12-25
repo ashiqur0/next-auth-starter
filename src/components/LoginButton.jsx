@@ -1,9 +1,9 @@
 'use client'
-
+import { useSession, signIn, signOut } from "next-auth/react"
 import React from 'react';
 
 const LoginButton = () => {
-    return <button className='btn'>Login Now</button>
+    return <button onClick={signIn} className='btn'>Login Now</button>
 };
 
 export default LoginButton;
