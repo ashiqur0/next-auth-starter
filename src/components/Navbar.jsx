@@ -4,8 +4,8 @@ import React from 'react';
 const Navbar = () => {
 
     return (
-        <div className='px-1 w-7xl mx-auto'>
-            <div className='flex items-center justify-between'>
+        <nav className='bg-slate-950'>
+            <div className='py-3 w-7xl mx-auto flex items-center justify-between'>
                 <div>Next Auth</div>
                 <div className='flex items-center gap-3'>
                     <Link href={'/'}>Home</Link>
@@ -13,7 +13,7 @@ const Navbar = () => {
                     <Link href={'/services'}>Services</Link>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 };
 
