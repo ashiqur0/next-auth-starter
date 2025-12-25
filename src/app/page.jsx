@@ -4,7 +4,13 @@ import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { SiMongodb } from "react-icons/si";
 import Link from "next/link";
 import LoginButton from "@/components/LoginButton";
-export default function Home() {
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+
+export default async function Home() {
+
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="min-h-screen relative flex flex-col justify-center items-center gap-5 ">
       <div className=" flex gap-5 space-x-4 items-center">
@@ -16,7 +22,7 @@ export default function Home() {
         <RiNextjsLine size={50}></RiNextjsLine>
         <SiMongodb size={50} className="text-green-600"></SiMongodb>
       </div>
-      
+
       <div className="relative">
         <h2 className="text-5xl">NEXT AUTH</h2>
       </div>
@@ -27,6 +33,9 @@ export default function Home() {
           Register
         </Link>
       </div>
+
+      <h2 className="font-bold">User Server</h2>
+      <div className="border-2 p-4 rounded">{JSON.stringify(session)}</div>
     </div>
   );
 }
