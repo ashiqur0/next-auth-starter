@@ -22,7 +22,8 @@ export async function proxy(req) {
 
   // logic for admin route
   if (isAuthenticated && !isAdmin && isAdminRoute) {
-    return NextResponse.redirect(new URL('/forbidden', req.url));
+    // return NextResponse.redirect(new URL('/forbidden', req.url)); // forbidden path + page
+    return NextResponse.rewrite(new URL('/forbidden', req.url)); //only forbidden page
   }
 
   return NextResponse.next()
