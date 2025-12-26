@@ -45,7 +45,26 @@ export const authOptions = {
     ],
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            return true
+            try {
+                const payload = {
+                    ...user, provider: account.provider,
+                    providerId: account.providerAccountId,
+                    role: 'user',
+                    createdAt: new Date().toISOString(),
+                }
+
+                if (!user?.email) {
+                    return false;
+                }
+                const isExists = await dbConnect('users').findOne({ email: user.email });
+                if (!isExists) {
+                    const result = await dbConnect('users').insertOne(payload);
+                }
+
+                return true;
+            } catch (error) {
+                return false;
+            }
         },
         // async redirect({ url, baseUrl }) {
         //     return baseUrl
