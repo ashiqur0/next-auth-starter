@@ -3,8 +3,8 @@ import { FaReact } from "react-icons/fa";
 import { IoShieldCheckmarkSharp } from "react-icons/io5";
 import { SiMongodb } from "react-icons/si";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import AuthButtons from "@/components/AuthButtons";
+import { authOptions } from "@/lib/authOptions";
 
 export default async function Home() {
 
