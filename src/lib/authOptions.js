@@ -55,7 +55,10 @@ export const authOptions = {
                 if (!user?.email) {
                     return false;
                 }
-                const isExists = await dbConnect('users').findOne({ email: user.email });
+                const isExists = await dbConnect('users').findOne({
+                    email: user.email,
+                    providerId: account.providerAccountId
+                });
                 if (!isExists) {
                     const result = await dbConnect('users').insertOne(payload);
                 }
