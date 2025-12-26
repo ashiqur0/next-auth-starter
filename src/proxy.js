@@ -11,12 +11,14 @@ export async function proxy(req) {
   const isPrivate = privateRoutes.some((route) => reqPath.startsWith(route));
 
   if (!isAuthenticated && isPrivate) {
-    return NextResponse.redirect(new URL('/api/auth/signin', req.url));
+    const loginUrl = new URL('/api/auth/signin', req.url);
+    loginUrl.searchParams.set('callbackUrl', reqPath);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: '/private/:path*',
+  matcher: ['/private/:path*', '/dashboard/:path*', '/secret/:path*'],
 }
