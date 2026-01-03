@@ -16,7 +16,6 @@ export const postUser = async (payLoad) => {
     }
 
     // 2. create new user
-
     // encrypt the password
     const hashedPassword = await bcrypt.hash(payLoad.password, 10);
 
@@ -34,6 +33,12 @@ export const postUser = async (payLoad) => {
         return {
             success: true,
             message: `user created with ${result.insertedId.toString()}`,
+        }
+    } else {
+        // if fail to connect with database
+        return {
+            success: false,
+            message: 'something went wrong'
         }
     }
 }
